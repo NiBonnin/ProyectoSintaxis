@@ -1,0 +1,102 @@
+BNF
+
+<PROG> ::= <SENT> “;” <PROG>  | e
+<SENT> ::= <ASIGNACION> | <LEER> | <ESCRIBIR> | <CONDICIONAL> | <CICLO> 
+<CONDICIONAL> ::= “IF” <CONDICION> “THEN” <PROG> <SINO> ”END” 
+	<SINO> ::=	”ELSE” <PROG> | e
+<CICLO> ::= “WHILE” <CONDICION> “DO” <PROG> “END”
+<CONDICION> ::= <CONDAND> <T>
+	<T> ::= “OR” <CONDICION>  | e
+	<CONDAND> ::= <CONDNOT> <S>
+	<S> ::= “AND” <CONDAND> | e
+	<CONDNOT> ::= “NOT” <CONDNOT> | <EXPRESION> “oprel” <EXPRESION> | “[” <CONDICION> “]”
+<ASIGNACION> ::= “id” “=” <EXPRESION>
+<EXPRESION> ::= <TERMINO> <DTERMINO>
+	<DTERMINO> ::=  “+” <EXPRESION> | “-” <EXPRESION> | e
+	<TERMINO> ::=  <FACTOR> <DFACTOR>
+		<DFACTOR> ::= “*” <TERMINO> | “/” <TERMINO> | e
+		<FACTOR> ::= “id” | “num” | “(” <EXPRESION> “)”
+<LEER> ::= “READ” “(” “STRING” “,” “id” “)”
+<ESCRIBIR> ::= “WRITE” “(” “STRING” “,” <EXPRESION> “)”	
+
+
+BNF
+
+<PROG> ::= <SENT> “;” <PROG>  | e
+evalprog(arbol , estado)   /// diccionario variable , estado clasve(nombre) valor(valor variable) 
+{
+ver produccion determinar si la pruccion es la primera o la segunda.
+si es la primera 
+evalSent(arbol.hijos[0], estado(se modifica estado) )
+evalProg(arbol.hijos[2], estado)
+e no hace nada
+
+
+}
+
+
+<SENT> ::= <ASIGNACION> | <LEER> | <ESCRIBIR> | <CONDICIONAL> | <CICLO> 
+evalSent(arbol ,estado)
+{
+
+ver si es A,L,E,C para cada uno.
+se llama con el hijo y estado correspondiente
+
+
+}
+
+
+<CONDICIONAL> ::= “IF” <CONDICION> “THEN” <PROG> <SINO> ”END” 
+evalCondicionl
+{
+
+evalCondicion(arbol.hijo[1] , estado , resultado(devuelve V o F )     )
+if (resultado) then
+{
+evalProg(arbol.hijo[3], estado  )
+
+
+}  
+else
+{
+evalSino(arboñ.hijo[4], estado )
+
+
+}
+
+
+
+}
+
+
+
+
+	<SINO> ::=	”ELSE” <PROG> | e
+<CICLO> ::= “WHILE” <CONDICION> “DO” <PROG> “END”
+<CONDICION> ::= <CONDAND> <T>
+	<T> ::= “OR” <CONDICION>  | e
+	<CONDAND> ::= <CONDNOT> <S>
+	<S> ::= “AND” <CONDAND> | e
+	<CONDNOT> ::= “NOT” <CONDNOT> | <EXPRESION> “oprel” <EXPRESION> | “[” <CONDICION> “]”
+<ASIGNACION> ::= “id” “=” <EXPRESION>
+
+evalAsignacion(arbol , estado)  estado entrada, salida
+{
+evalExpresion(arbol.hijo[2],  estado, resultado(devuelve valor))
+asignarValor(estado, arbol.hijo[0].lexema , resultado) 
+
+
+
+}
+
+
+
+<EXPRESION> ::= <TERMINO> <DTERMINO>
+	<DTERMINO> ::=  “+” <EXPRESION> | “-” <EXPRESION> | e
+	<TERMINO> ::=  <FACTOR> <DFACTOR>
+		<DFACTOR> ::= “*” <TERMINO> | “/” <TERMINO> | e
+		<FACTOR> ::= “id” | “num” | “(” <EXPRESION> “)”
+<LEER> ::= “READ” “(” “STRING” “,” “id” “)”
+<ESCRIBIR> ::= “WRITE” “(” “STRING” “,” <EXPRESION> “)”	
+
+en estadado (nesesitas un leer y guardar) transformar cadena numero , hacer suma y devolver resultado
