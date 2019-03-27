@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Proyecto_Final
 {
@@ -24,9 +25,12 @@ namespace Proyecto_Final
         const String FACTOR = "DFACTOR";
         const String DFACTOR = "DFACTOR";
         Dictionary<String, Double> mapaDatos;
+        List<String> listaMostrar;
+        public event EventHandler ThresholdReached;
 
-        public Dictionary<String, Double> EvalProgPrincipal(CArbol arbol)
+        public List<String> EvalProgPrincipal(CArbol arbol)
         {
+            listaMostrar = new List<String>();
             mapaDatos = new Dictionary<String, Double>();
             CNodo nodoEncontrado = arbol.Buscar(SENT, null);
             if(nodoEncontrado != null)
@@ -37,7 +41,7 @@ namespace Proyecto_Final
                     EvalProg(nodoEncontrado.Hermano.Hermano);
                 }
             }
-            return mapaDatos;
+            return listaMostrar;
         }
 
         public void EvalProg(CNodo nodo)
@@ -64,8 +68,10 @@ namespace Proyecto_Final
                         EvalAsignacion(nodoHijo);
                         break;
                     case LEER:
+                        EvalLeer(nodoHijo);
                         break;
                     case ESCRIBIR:
+                        EvalEscribir(nodoHijo);
                         break;
                     case CONDICIONAL:
                         EvalCondicional(nodoHijo);
@@ -83,17 +89,24 @@ namespace Proyecto_Final
         {
             CNodo nodoVariable = nodo.Hijo;
             CNodo nodoExpresion = nodoVariable.Hermano.Hermano;
-            mapaDatos.Add(nodoVariable.Dato, EvalExpresion(nodoExpresion));//expresion
+            mapaDatos.Add(nodoVariable.Dato, EvalExpresion(nodoExpresion));
         }
 
         public void EvalLeer(CNodo nodo)
         {
-
+            String mostrar = nodo.Hijo.Hermano.Hermano.Dato;
+            Double valorIngresado = 0D;
+            FormLeer formLeer = new FormLeer(mostrar);
+            formLeer.ShowDialog();
+            Double.TryParse(formLeer.ValorIngresado, out valorIngresado);
+            mapaDatos.Add(nodo.Hijo.Hermano.Hermano.Hermano.Hermano.Dato, valorIngresado);
         }
 
         public void EvalEscribir(CNodo nodo)
         {
-
+            String mostrar = nodo.Hijo.Hermano.Hermano.Dato;
+            Double expresionUsuario = EvalExpresion(nodo.Hijo.Hermano.Hermano.Hermano.Hermano);
+            listaMostrar.Add(mostrar + expresionUsuario);
         }
 
         public void EvalCondicional(CNodo nodo)
@@ -118,9 +131,9 @@ namespace Proyecto_Final
             }
         }
 
-        public bool EvalCondicion(CNodo nodo)
+        public Boolean EvalCondicion(CNodo nodo)
         {
-            return false;
+            return EvalCondAnd(nodo.Hijo) || EvalOr(nodo.Hijo.Hermano);
         }
 
         public void EvalCiclo(CNodo nodo)
@@ -173,7 +186,7 @@ namespace Proyecto_Final
         public Double EvalFactor(CNodo nodo)//nodo dato, que puede ser num, id o exp
         {
             String dato = nodo.Dato;
-            Double valor;
+            Double valor = 0D;
             if (!Double.TryParse(dato, out valor))
             {
                 if (dato.First() == '(')
@@ -186,6 +199,58 @@ namespace Proyecto_Final
                 }
             }
             return valor;
+        }
+
+        public Boolean EvalCondAnd(CNodo nodo)
+        {
+            return EvalCondNot(nodo.Hijo) && EvalAnd(nodo.Hijo.Hermano);
+        }
+
+        public Boolean EvalAnd(CNodo nodo)
+        {
+            if(nodo.Hijo != null)
+            {
+                return EvalCondAnd(nodo.Hijo.Hermano);
+            }
+            return true;
+        }
+
+        public Boolean EvalOr(CNodo nodo)
+        {
+            if (nodo.Hijo != null)
+            {
+                return EvalCondicion(nodo.Hijo.Hermano);
+            }
+            return true;
+        }
+
+        public Boolean EvalCondNot(CNodo nodo)
+        {
+            String valorHijo = nodo.Hijo.Dato;
+            if (valorHijo.Equals("NOT"))
+            {
+                return !EvalCondNot(nodo.Hijo.Hermano);
+            }
+            else if(valorHijo.Equals("["))
+            {
+                return EvalCondicion(nodo.Hijo.Hermano);
+            }
+            else
+            {
+                Double val1 = EvalExpresion(nodo.Hijo);
+                String op = nodo.Hijo.Hermano.Dato;
+                Double val2 = EvalExpresion(nodo.Hijo.Hermano.Hermano);
+                switch (op)
+                {
+                    case "<": return val1 < val2;
+                    case ">": return val1 > val2;
+                    case "==": return val1 == val2;
+                    case "!=": return val1 != val2;
+                    case "<=": return val1 <= val2;
+                    case ">=": return val1 >= val2;
+                    default: return true;
+                }
+            }
         }
     }
 }

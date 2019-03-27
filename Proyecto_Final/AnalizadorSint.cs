@@ -163,11 +163,9 @@ namespace Proyecto_Final
                 { Resultado = true; }
             }
             return Resultado;
-
-
         }
 
-       
 
+        public CArbol Arbol { get => this.arbol; }
     }
 }

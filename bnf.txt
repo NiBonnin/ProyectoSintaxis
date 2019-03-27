@@ -5,10 +5,10 @@ BNF
 <CONDICIONAL> ::= “IF” <CONDICION> “THEN” <PROG> <SINO> ”END” 
 	<SINO> ::=	”ELSE” <PROG> | e
 <CICLO> ::= “WHILE” <CONDICION> “DO” <PROG> “END”
-<CONDICION> ::= <CONDAND> <T>
-	<T> ::= “OR” <CONDICION>  | e
-	<CONDAND> ::= <CONDNOT> <S>
-	<S> ::= “AND” <CONDAND> | e
+<CONDICION> ::= <CONDAND> <OR> or es T, and es S
+	<OR> ::= “OR” <CONDICION>  | e
+	<CONDAND> ::= <CONDNOT> <AND>
+	<AND> ::= “AND” <CONDAND> | e
 	<CONDNOT> ::= “NOT” <CONDNOT> | <EXPRESION> “oprel” <EXPRESION> | “[” <CONDICION> “]”
 <ASIGNACION> ::= “id” “=” <EXPRESION>
 <EXPRESION> ::= <TERMINO> <DTERMINO>
@@ -16,9 +16,21 @@ BNF
 	<TERMINO> ::=  <FACTOR> <DFACTOR>
 		<DFACTOR> ::= “*” <TERMINO> | “/” <TERMINO> | e
 		<FACTOR> ::= “id” | “num” | “(” <EXPRESION> “)”
-<LEER> ::= “READ” “(” “STRING” “,” “id” “)”
+
+
+<LEER> ::= “READ” “(” “STRING” “,” “id” “)” STRING es una string para mostrar, y pasa un valor. id es un numero
 <ESCRIBIR> ::= “WRITE” “(” “STRING” “,” <EXPRESION> “)”	
 
+
+
+
+i = e +2;
+read("escribir esta variable", e);
+write("resultado", i);
+
+
+
+e = 3;
 
 BNF
 

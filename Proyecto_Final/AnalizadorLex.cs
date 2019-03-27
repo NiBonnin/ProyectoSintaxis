@@ -37,7 +37,7 @@ namespace Proyecto_Final
                 {
 
                     case 0: // primero si es palabra reservada
-                        switch(Char.ToUpper(tokenconcatenar))
+                        switch((tokenconcatenar))
                         {
                             case 'I':   //IF
                                 lexema += tokenconcatenar;

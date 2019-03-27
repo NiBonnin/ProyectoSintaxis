@@ -14,6 +14,7 @@ namespace Proyecto_Final
     {
         AnalizadorLex oAlex;
         AnalizadorSint oAsint;
+        Evaluador evaluador;
         bool evento = false;  // se cambia a true si se validaron los lexemas
 
 
@@ -31,8 +32,7 @@ namespace Proyecto_Final
         private void button1_Click(object sender, EventArgs e)
         {
             oAlex = new AnalizadorLex();
-            
-             oAsint= new AnalizadorSint();
+            oAsint= new AnalizadorSint();
             string texto = textBox1.Text;
             texto = texto.Replace(Environment.NewLine, "").Replace(" ",""); // eliminas espacios salto de linea y demas
             texto = texto += "$";     //marca final de la string
@@ -48,21 +48,13 @@ namespace Proyecto_Final
                 {
                     dataGridView1.Rows[i].Cells[0].Value = lexemas[i];
                     dataGridView1.Rows[i].Cells[1].Value = descripcion[i];
-
                 }
-
                 evento = true;
             }
             else
             {
-                label2.Text = "Error, no se ha ingresado codigo";
-                
+                MessageBox.Show("Error, no se ha ingresado codigo");
             }
-
-
-
-
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -77,31 +69,39 @@ namespace Proyecto_Final
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-
-            if (evento == false)  // si el primer elemento esta vacio, no pesee nada
-            { label2.Text = "No se a cargado la expresion o no valido el codigo"; }
+            String textoResultado;
+            if (evento == false)  // si el primer elemento esta vacio, no posee nada
+            { textoResultado = "No se ha cargado la expresion o no valido el codigo"; }
             else if (oAlex.Validar()==false)  // si no se encontro ningun desconocido , sino no deja hacer analisis lexico
             {
                 string[] tipos = oAlex.GetAnalizar().ToArray();
                 oAsint.InicializarPila(); // inicia pila con tope = a simbolo inicial de gramatica y el fondo "$"
                 oAsint.SetLexemas(oAlex.GetAnalizar().ToArray());  // carga lexema (en esta pruebe)
                 if (oAsint.Analizar() == true)
-                { label2.Text = "Sintaxis correcta "; }
+                { textoResultado = "Sintaxis correcta "; }
                 else
-                { label2.Text = "Sintaxis incorrecta "; }
+                { textoResultado = "Sintaxis incorrecta "; }
             }
             else
-            { label2.Text = "Se a ingresado un caracter desconocido"; }
-
-
-
-
+            { textoResultado = "Se ha ingresado un caracter desconocido"; }
+            MessageBox.Show(textoResultado);
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEvaluar_Click(object sender, EventArgs e)
+        {
+            evaluador = new Evaluador();
+            List<String> listaMostrar = evaluador.EvalProgPrincipal(oAsint.Arbol);
+            String lineaMostrar = "";
+            foreach (String linea in listaMostrar)
+            {
+                lineaMostrar += " " + linea;
+            }
+            textBox1.Text = lineaMostrar;
         }
     }
 }
