@@ -29,7 +29,7 @@ namespace Proyecto_Final
         {
             listaMostrar = new List<String>();
             mapaDatos = new Dictionary<String, Double>();
-            CNodo nodoEncontrado = arbol.Buscar(SENT, null);
+            CNodo nodoEncontrado = arbol.Buscar(SENT, arbol.raiz);
             if(nodoEncontrado != null)
             {
                 EvalSentencia(nodoEncontrado);

@@ -8,7 +8,7 @@ namespace Proyecto_Final
 {
     class CArbol
     {
-        private CNodo raiz;
+        public CNodo raiz;
         private CNodo trabajo;
 
         public CArbol()
