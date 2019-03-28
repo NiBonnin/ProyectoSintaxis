@@ -9,8 +9,8 @@ namespace Proyecto_Final
 {
     class AnalizadorSint
     {
-        CArbol arbol; 
-        CNodo nodoAux;
+        CArbol arbol;
+        CNodo nodoAux = new CNodo();
         CNodo raiz;  // nodo raiz del arbol
         Stack pila;
         Tas tas = new Tas();  // ver so de cargas tas

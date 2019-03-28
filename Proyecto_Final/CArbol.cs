@@ -8,12 +8,14 @@ namespace Proyecto_Final
 {
     class CArbol
     {
-        public CNodo raiz;
+        private CNodo raiz;
         private CNodo trabajo;
+
+        internal CNodo Raiz { get => raiz; set => raiz = value; }
 
         public CArbol()
         {
-            raiz = new CNodo();
+            Raiz = new CNodo();
         }
          
         public CNodo Insertar(string pDato, CNodo pNodo)
@@ -21,17 +23,8 @@ namespace Proyecto_Final
             //si no hay nodo donde insertar, tomamos como si fuera en la raiz
             if(pNodo==null)
             {
-                raiz = new CNodo();
-                raiz.Dato = pDato;
-                raiz.Tratado = false;
-
-                // No hay hijo
-                raiz.Hijo = null;
-
-                // No hay hermano
-                raiz.Hermano = null;
-
-                return raiz;
+                Raiz = new CNodo(); //LO OTRO NO ERA NECESARIO YA QUE LO ASIGNA CUANDO CREA CNODO
+                return Raiz;
             }
             if(pNodo.Hijo==null)
             {
