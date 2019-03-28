@@ -69,7 +69,7 @@
             this.Controls.Add(this.lblTexto);
             this.Controls.Add(this.tboxDato);
             this.Name = "FormLeer";
-            this.Text = "FormLeer";
+            this.Text = "Ventana ingreso dato";
             this.ResumeLayout(false);
             this.PerformLayout();
 

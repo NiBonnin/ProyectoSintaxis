@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Proyecto_Final
 {
@@ -98,6 +95,10 @@ namespace Proyecto_Final
             Double valorIngresado = 0D;
             FormLeer formLeer = new FormLeer(mostrar);
             formLeer.ShowDialog();
+            if (String.IsNullOrEmpty(formLeer.ValorIngresado))
+            {
+                throw new ArgumentException("Debe de agregar un valor", "parametro");
+            }
             Double.TryParse(formLeer.ValorIngresado, out valorIngresado);
             mapaDatos.Add(nodo.Hijo.Hermano.Hermano.Hermano.Hermano.Dato, valorIngresado);
         }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Proyecto_Final
 {
@@ -671,10 +669,8 @@ namespace Proyecto_Final
             return DESCONOCIDO;
         }
 
-        public bool Validar()  //devuelve true si todo los lexemas son validos
-        { bool rersultado = descripcion.Contains("Desconocido");
-            return rersultado;
-        }
+        public bool ContieneLexemaDesconocido()  //devuelve true si todo los lexemas son validos
+        { return descripcion.Contains("Desconocido"); }
 
         public void SetCadenaEntrada(string cadena)
         { cadenaentrada = cadena; }
