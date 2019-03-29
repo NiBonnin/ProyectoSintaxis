@@ -92,7 +92,7 @@ namespace Proyecto_Final
                 //String valorString = lexemaAux[1];
                 if (tope == lexemas[0]) // se van eliminando el primero del vector con lexemas
                 {
-                    eliminarPrimero();
+                    eliminarPrimero(); 
                     pila.Pop();
                     tope = Convert.ToString(pila.Peek());
                 }
