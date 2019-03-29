@@ -86,6 +86,9 @@ namespace Proyecto_Final
 
             while (tope != "$" && lexemas[0] != "$" && estado == true)  // mientras top sea diferente de fin y la lista no este vacia
             {
+                String[] lexemaAux = lexemas[0].Split('G');
+                lexemas[0] = lexemaAux[0];
+                String valorString = lexemaAux[1];
                 if (tope == lexemas[0]) // se van eliminando el primero del vector con lexemas
                 {
                     eliminarPrimero();
@@ -95,7 +98,6 @@ namespace Proyecto_Final
                 else if(EsTerminal(tope,terminales) && EsTerminal(lexemas[0],terminales) && tope!=lexemas[0]) // para de analizar si tope != de lexema y ambos son terminales
                 {
                     estado = false;
-
                 }
                 else
                 {
@@ -108,8 +110,6 @@ namespace Proyecto_Final
                     CargarHojas(valorPosTas,nodoAux); // carga en el arbol el valor de la tas
                     ApilarCampo(valorPosTas); // apila lo correspondiente a la interseccion de fila y columna , si el valor es nulo no hace nada
                     tope = Convert.ToString(pila.Peek());
-
-
                 }
 
             }

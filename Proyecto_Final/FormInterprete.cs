@@ -15,13 +15,12 @@ namespace Proyecto_Final
         public FormInterprete()
         {
             InitializeComponent();
-            
         }
 
         private void btnReconocerElementos_Click(object sender, EventArgs e)
         {
             reiniciar();
-            string texto = tboxCodigoAAnalizar.Text.Replace(Environment.NewLine, "").Replace(" ",""); // se eliminan espacios y salto de linea
+            string texto = tboxCodigoAAnalizar.Text.Replace(Environment.NewLine, " "); // se eliminan espacios y salto de linea
             if (!String.IsNullOrEmpty(texto))
             {
                 texto += "$";     //marca final de la string

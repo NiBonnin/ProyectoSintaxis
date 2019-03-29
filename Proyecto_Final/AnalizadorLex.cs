@@ -6,10 +6,9 @@ namespace Proyecto_Final
 {
     class AnalizadorLex
     {
-
         string cadenaentrada; // obteniada del scaner (para facilitar se eliminan los espacios y salto de lineas y otros)
         char tokenconcatenar;  //componente a analizar
-        string lexema = "";
+        string lexema = ""; 
         string num = "0123456789";
         string carac = "abcdefghijkmnñlopqrstuvwxyz";   // DIFERENCIA ENTRE MINUSCULA Y MAYUSCULA
         /*string op = "+-/*="; //el igual es de asignacion
@@ -20,6 +19,7 @@ namespace Proyecto_Final
         List<string> lexemas;
         List<string> descripcion;
         List<string> analizar; // va a contener los que se va a pasar al sintactico detectando que no y eso
+        bool estaLeyendo = false;
 
         public void AutomataReconocedor()
         {
@@ -30,10 +30,12 @@ namespace Proyecto_Final
             for (inicioEstado = 0; inicioEstado < cadenaentrada.Length; inicioEstado++)
             {
                 tokenconcatenar = cadenaentrada[inicioEstado];
-
+                if (!estaLeyendo && tokenconcatenar.Equals(' '))
+                {
+                    tokenconcatenar = '_';
+                }
                 switch(estadoPrincipal)
                 {
-
                     case 0: // primero si es palabra reservada
                         switch((tokenconcatenar))
                         {
@@ -181,6 +183,12 @@ namespace Proyecto_Final
                                 lexema = "";
                                 estadoPrincipal = 0;
                                 break;
+                            case '"':
+                                lexema = "";
+                                estadoPrincipal = 14;
+                                break;
+                            case '_':
+                                break;
                             case '$':             // si es final de la cadena lo almaceno solo en la que le paso al anlizador sintactico
                                 lexema += tokenconcatenar;
                                 analizar.Add(lexema);
@@ -243,7 +251,7 @@ namespace Proyecto_Final
 
 
                         break;
-                    case 2:    // reconoce string (para facilitar la string solo puede contener numeros o letras)
+                    case 2:    // reconoce variable (numero o letras)
                         if(carac.Contains(tokenconcatenar) ==true || num.Contains(tokenconcatenar) ==true)
                         {
                             lexema += tokenconcatenar;
@@ -330,6 +338,7 @@ namespace Proyecto_Final
                             descripcion.Add(reconocer(lexema));
                             lexema ="";
                             estadoPrincipal = 0;
+                            estaLeyendo = true;
                         }
                        else if (tokenconcatenar.Equals('L'))
                         {
@@ -568,8 +577,8 @@ namespace Proyecto_Final
                             inicioEstado = inicioEstado - 1;
                         }
                         break;
-                    /*case 14:
-                        if(may.Contains(tokenconcatenar))
+                    case 14:
+                        if(!tokenconcatenar.Equals('"'))
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 14;
@@ -577,17 +586,12 @@ namespace Proyecto_Final
                         else
                         {
                             lexemas.Add(lexema);
-                            descripcion.Add("Desconocido");
+                            analizar.Add("STRING" + lexema);
+                            descripcion.Add("STRING");
                             lexema = "";
                             estadoPrincipal = 0;
-                            inicioEstado = inicioEstado - 1;
-
-
                         }
-
-
-
-                        break;*/
+                        break;
                     case 15:
                         if (tokenconcatenar.Equals('T'))
                         {

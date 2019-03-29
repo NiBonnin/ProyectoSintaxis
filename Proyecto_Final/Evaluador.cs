@@ -23,7 +23,6 @@ namespace Proyecto_Final
         const String DFACTOR = "DFACTOR";
         Dictionary<String, Double> mapaDatos;
         List<String> listaMostrar;
-        public event EventHandler ThresholdReached;
 
         public List<String> EvalProgPrincipal(CArbol arbol)
         {
@@ -32,11 +31,15 @@ namespace Proyecto_Final
             CNodo nodoEncontrado = arbol.Buscar(SENT, arbol.Raiz);
             if(nodoEncontrado != null)
             {
-                EvalSentencia(nodoEncontrado);
+                EvalSentencia(nodoEncontrado.Hijo);
                 if(nodoEncontrado.Hermano.Hermano.Hijo != null)
                 {
                     EvalProg(nodoEncontrado.Hermano.Hermano);
                 }
+            }
+            foreach (KeyValuePair<String, Double> pair in mapaDatos)
+            {
+                listaMostrar.Add(pair.Key + "   " + pair.Value);
             }
             return listaMostrar;
         }
@@ -56,8 +59,8 @@ namespace Proyecto_Final
 
         public void EvalSentencia(CNodo nodo)
         {
-            CNodo nodoHijo = nodo.Hijo;
-            if(nodoHijo != null && nodo.Dato == ASIGNACION)
+            CNodo nodoHijo = nodo;
+            if(nodoHijo != null)
             {
                 switch (nodo.Dato)
                 {
