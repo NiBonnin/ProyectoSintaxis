@@ -86,9 +86,10 @@ namespace Proyecto_Final
 
             while (tope != "$" && lexemas[0] != "$" && estado == true)  // mientras top sea diferente de fin y la lista no este vacia
             {
-                String[] lexemaAux = lexemas[0].Split('G');
-                lexemas[0] = lexemaAux[0];
-                String valorString = lexemaAux[1];
+
+                //String[] lexemaAux = lexemas[0].Split('G');
+                //lexemas[0] = lexemaAux[0];
+                //String valorString = lexemaAux[1];
                 if (tope == lexemas[0]) // se van eliminando el primero del vector con lexemas
                 {
                     eliminarPrimero();

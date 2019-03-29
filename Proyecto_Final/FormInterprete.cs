@@ -101,10 +101,10 @@ namespace Proyecto_Final
 
         private void btnPrograma2_Click(object sender, EventArgs e)
         {
-            String programa = "READ(Ingresar dato, a);" + Environment.NewLine +
+            String programa = "READ(\"Ingresar dato\", a);" + Environment.NewLine +
                               "b = 4;" + Environment.NewLine +
                               "WHILE (b < 10) DO b + a;" + Environment.NewLine +
-                              "WRITE(Valor resultado de b, b);";
+                              "WRITE(\"Valor resultado de b\", b);";
             tboxCodigoAAnalizar.Text = programa;
         }
 

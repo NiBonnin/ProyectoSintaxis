@@ -105,7 +105,7 @@ namespace Proyecto_Final
             if (pNodo == null)
                 return encontrado;
 
-            if (pNodo.Dato.CompareTo(pDato) == 0 && pNodo.Tratado==false)
+            if (pNodo.Dato.CompareTo(pDato) == 0 && !pNodo.Tratado)
             {
                 encontrado = pNodo;
                 return encontrado;

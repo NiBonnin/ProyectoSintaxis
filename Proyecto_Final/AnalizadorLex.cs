@@ -19,7 +19,8 @@ namespace Proyecto_Final
         List<string> lexemas;
         List<string> descripcion;
         List<string> analizar; // va a contener los que se va a pasar al sintactico detectando que no y eso
-        bool estaLeyendo = false;
+        bool estaEsperandoRead = false;
+        bool estaEsperandoWrite = false;
 
         public void AutomataReconocedor()
         {
@@ -30,7 +31,7 @@ namespace Proyecto_Final
             for (inicioEstado = 0; inicioEstado < cadenaentrada.Length; inicioEstado++)
             {
                 tokenconcatenar = cadenaentrada[inicioEstado];
-                if (!estaLeyendo && tokenconcatenar.Equals(' '))
+                if (!(estaEsperandoRead || estaEsperandoWrite) && tokenconcatenar.Equals(' '))
                 {
                     tokenconcatenar = '_';
                 }
@@ -203,23 +204,17 @@ namespace Proyecto_Final
                                 {
                                     estadoPrincipal = 2;
                                     lexema += tokenconcatenar;
-
                                 }
                                
                                 else
-                                { estadoPrincipal = 0;
+                                {
+                                    estadoPrincipal = 0;
                                     lexemas.Add(Convert.ToString(tokenconcatenar));
                                     descripcion.Add("Desconocido");
-
                                 }
                                 
                                 break;
-
                                 //si no  es ninguno retorceder for y pasar al sigueinte caso
-
-
-
-
                         }
 
                         break;
@@ -338,7 +333,6 @@ namespace Proyecto_Final
                             descripcion.Add(reconocer(lexema));
                             lexema ="";
                             estadoPrincipal = 0;
-                            estaLeyendo = true;
                         }
                        else if (tokenconcatenar.Equals('L'))
                         {
@@ -404,6 +398,10 @@ namespace Proyecto_Final
                             lexemas.Add(lexema);
                             analizar.Add(lexema);
                             descripcion.Add(reconocer(lexema));
+                            if (lexema.Contains("WRITE"))
+                            {
+                                estaEsperandoWrite = true;
+                            }
                             lexema = "";
                             estadoPrincipal = 0;
                         }
@@ -526,6 +524,7 @@ namespace Proyecto_Final
                             descripcion.Add(reconocer(lexema));
                             lexema = "";
                             estadoPrincipal = 0;
+                            estaEsperandoRead = true;
                         }
                         else
                         {
@@ -586,8 +585,10 @@ namespace Proyecto_Final
                         else
                         {
                             lexemas.Add(lexema);
-                            analizar.Add("STRING" + lexema);
+                            analizar.Add("STRING");
                             descripcion.Add("STRING");
+                            estaEsperandoWrite = false;
+                            estaEsperandoRead = false;
                             lexema = "";
                             estadoPrincipal = 0;
                         }
