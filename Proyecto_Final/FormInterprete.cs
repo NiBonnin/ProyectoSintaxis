@@ -103,7 +103,9 @@ namespace Proyecto_Final
         {
             String programa = "READ(\"Ingresar dato\", a);" + Environment.NewLine +
                               "b = 4;" + Environment.NewLine +
-                              "WHILE (b < 10) DO b + a;" + Environment.NewLine +
+                              "WHILE b < 10 DO "+ Environment.NewLine +
+                              "b = b + a;"  + Environment.NewLine +
+                              "END;" + Environment.NewLine +
                               "WRITE(\"Valor resultado de b\", b);";
             tboxCodigoAAnalizar.Text = programa;
         }

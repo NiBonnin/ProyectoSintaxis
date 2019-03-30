@@ -50,17 +50,12 @@ namespace Proyecto_Final
                 for (int c = 0; c < longseparados; c++)
                 {
                     arbol.Insertar(separados[c], nodo);
-
                 }
-
             }
-
             else
             {
                 arbol.Insertar("", nodoAux);  //el dato va a estar vacio, representando epsilon
             }
-
-
         }
 
 
@@ -82,14 +77,31 @@ namespace Proyecto_Final
             string tope = Convert.ToString(pila.Peek());
             bool estado = true;  // es true mientras no halla dos terminales diferentes en tope y lexema[0]
             string[] terminales = tas.GetTerminales();
-            
 
-            while (tope != "$" && lexemas[0] != "$" && estado == true)  // mientras top sea diferente de fin y la lista no este vacia
+            while (tope != "$" && lexemas[0] != "$" && estado)  // mientras top sea diferente de fin y la lista no este vacia
             {
+                if (lexemas[0].Contains("STRING@") || lexemas[0].Contains("id@") || lexemas[0].Contains("num@"))
+                {
+                    String[] lexemaAux = lexemas[0].Split('@');
+                    lexemas[0] = lexemaAux[0];
+                    String valorDato = lexemaAux[1];
+                    int i = -1;
+                    switch (lexemas[0])
+                    {
+                        case "STRING":
+                            i = 0;
+                            break;
+                        case "id":
+                            i = 1;
+                            break;
+                        case "num":
+                            i = 2;
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
-                //String[] lexemaAux = lexemas[0].Split('G');
-                //lexemas[0] = lexemaAux[0];
-                //String valorString = lexemaAux[1];
                 if (tope == lexemas[0]) // se van eliminando el primero del vector con lexemas
                 {
                     eliminarPrimero(); 
@@ -107,14 +119,14 @@ namespace Proyecto_Final
                     string valorPosTas = tas.Elemento(posfila, poscolumna);
                     pila.Pop();                // desapila el top
                     nodoAux = arbol.BuscarNoTratado(tope, raiz); // busca el nodo no tratado para luego insertarle los hijos
-                    arbol.BuscarNoTratado(tope, raiz).Tratado = true; // cambia el valor a true ya que va a insertar los datos en ese nodo 
-                    CargarHojas(valorPosTas,nodoAux); // carga en el arbol el valor de la tas
+                    arbol.BuscarNoTratado(tope, raiz).Tratado = true; // cambia el valor a true ya que va a insertar los datos en ese nodo
+                    CargarHojas(valorPosTas, nodoAux); // carga en el arbol el valor de la tas
                     ApilarCampo(valorPosTas); // apila lo correspondiente a la interseccion de fila y columna , si el valor es nulo no hace nada
                     tope = Convert.ToString(pila.Peek());
                 }
 
             }
-            if(tope != "$" && lexemas[0]=="$" && EsTerminal(tope,terminales)==false) // verifica el epsileon del ante ultimo simbolo de la pila, si solo es no terminal
+            if(tope != "$" && lexemas[0]=="$" && !EsTerminal(tope,terminales)) // verifica el epsilon del ante ultimo simbolo de la pila, si solo es no terminal
             {
                 int poscolumna = tas.PosicionTerminales(lexemas[0]);     //fila lo del buffer de entrada
                 int posfila = tas.PosicionNoTerminales(tope);       // columna lo de a pila
@@ -137,15 +149,11 @@ namespace Proyecto_Final
             nuevoLexema = new string[longlexema - 1];
             for (int c = 0; c < longlexema - 1; c++)
             {
-
                 nuevoLexema[c] = lexemas[c + 1];
-
             }
-
 
             this.lexemas = nuevoLexema;
             return lexemas;
-
         }
 
         public void SetTas()  // carga las tas

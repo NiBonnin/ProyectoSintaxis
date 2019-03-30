@@ -19,8 +19,7 @@ namespace Proyecto_Final
         List<string> lexemas;
         List<string> descripcion;
         List<string> analizar; // va a contener los que se va a pasar al sintactico detectando que no y eso
-        bool estaEsperandoRead = false;
-        bool estaEsperandoWrite = false;
+        bool estaLeyendoString = false;
 
         public void AutomataReconocedor()
         {
@@ -31,7 +30,7 @@ namespace Proyecto_Final
             for (inicioEstado = 0; inicioEstado < cadenaentrada.Length; inicioEstado++)
             {
                 tokenconcatenar = cadenaentrada[inicioEstado];
-                if (!(estaEsperandoRead || estaEsperandoWrite) && tokenconcatenar.Equals(' '))
+                if (!(estaLeyendoString) && tokenconcatenar.Equals(' '))
                 {
                     tokenconcatenar = '_';
                 }
@@ -187,6 +186,7 @@ namespace Proyecto_Final
                             case '"':
                                 lexema = "";
                                 estadoPrincipal = 14;
+                                estaLeyendoString = true;
                                 break;
                             case '_':
                                 break;
@@ -220,34 +220,34 @@ namespace Proyecto_Final
                         break;
 
                     case 1:     // reconoce num
-                        if(num.Contains(tokenconcatenar)==true ) // al final probar si reconoce num y string
+                        if (num.Contains(tokenconcatenar)) // al final probar si reconoce num y string
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 1;
-                        }
-                       
-                        else if (tokenconcatenar.Equals('$')) // si el ultimo guardo lexema y despues final cadena
-                        {
-                            lexemas.Add(lexema);
-                            descripcion.Add("Numero");
-                            analizar.Add("num");
-                            lexema = Convert.ToString(tokenconcatenar);
-                            analizar.Add(lexema);
                         }
                         else
                         {
                             lexemas.Add(lexema);
                             descripcion.Add("Numero");
-                            analizar.Add("num");
-                            estadoPrincipal = 0;
-                            inicioEstado = inicioEstado - 1; ;  //retrocede uno en el for y  ahora ve si es string
-                            lexema = "";
+                            //analizar.Add("num");
+                            analizar.Add("num@" + lexema);
+                            if (tokenconcatenar.Equals('$')) // si el ultimo guardo lexema y despues final cadena
+                            {
+                                lexema = Convert.ToString(tokenconcatenar);
+                                analizar.Add(lexema);
+                            }
+                            else
+                            {
+                                estadoPrincipal = 0;
+                                inicioEstado = inicioEstado - 1; ;  //retrocede uno en el for y  ahora ve si es string
+                                lexema = "";
+                            }
                         }
 
 
                         break;
                     case 2:    // reconoce variable (numero o letras)
-                        if(carac.Contains(tokenconcatenar) ==true || num.Contains(tokenconcatenar) ==true)
+                        if(carac.Contains(tokenconcatenar) || num.Contains(tokenconcatenar))
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 2;                        
@@ -256,7 +256,8 @@ namespace Proyecto_Final
                         {
                             lexemas.Add(lexema);
                             descripcion.Add("Identificador");
-                            analizar.Add("id");
+                            //analizar.Add("id");
+                            analizar.Add("id@" + lexema);
                             estadoPrincipal = 0;
                             inicioEstado = inicioEstado - 1;
                             lexema = "";
@@ -398,10 +399,6 @@ namespace Proyecto_Final
                             lexemas.Add(lexema);
                             analizar.Add(lexema);
                             descripcion.Add(reconocer(lexema));
-                            if (lexema.Contains("WRITE"))
-                            {
-                                estaEsperandoWrite = true;
-                            }
                             lexema = "";
                             estadoPrincipal = 0;
                         }
@@ -524,7 +521,6 @@ namespace Proyecto_Final
                             descripcion.Add(reconocer(lexema));
                             lexema = "";
                             estadoPrincipal = 0;
-                            estaEsperandoRead = true;
                         }
                         else
                         {
@@ -585,10 +581,10 @@ namespace Proyecto_Final
                         else
                         {
                             lexemas.Add(lexema);
-                            analizar.Add("STRING");
+                            //analizar.Add("STRING");
+                            analizar.Add("STRING@" + lexema);
                             descripcion.Add("STRING");
-                            estaEsperandoWrite = false;
-                            estaEsperandoRead = false;
+                            estaLeyendoString = false;
                             lexema = "";
                             estadoPrincipal = 0;
                         }

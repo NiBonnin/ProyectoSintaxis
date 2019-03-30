@@ -25,6 +25,7 @@ namespace Proyecto_Final
             {
                 raiz = new CNodo();
                 raiz.Dato = pDato;
+                raiz.Descripcion = pNodo.Descripcion;
                 raiz.Tratado = false;
                 raiz.Hijo = null;
                 raiz.Hermano = null;
@@ -35,6 +36,7 @@ namespace Proyecto_Final
                 CNodo temp = new CNodo();
 
                 temp.Dato = pDato;
+                temp.Descripcion = pNodo.Descripcion;
 
                 // Conectamos el nuevo nodo como hijo
                 pNodo.Hijo = temp;
@@ -55,6 +57,7 @@ namespace Proyecto_Final
                 CNodo temp = new CNodo();
 
                 temp.Dato = pDato;
+                temp.Descripcion = pNodo.Descripcion;
                 temp.Tratado = false;
 
                 // Unimos el temp al ultimo hermano
@@ -131,5 +134,9 @@ namespace Proyecto_Final
             return encontrado;
         }
 
+        public static bool IsNullOrEmpty(String[] array)
+        {
+            return (array == null || array.Length == 0);
+        }
     }
 }

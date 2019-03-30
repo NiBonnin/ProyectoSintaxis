@@ -89,12 +89,12 @@ namespace Proyecto_Final
         {
             CNodo nodoVariable = nodo.Hijo;
             CNodo nodoExpresion = nodoVariable.Hermano.Hermano;
-            mapaDatos.Add(nodoVariable.Dato, EvalExpresion(nodoExpresion));
+            mapaDatos.Add(nodoVariable.Descripcion, EvalExpresion(nodoExpresion));
         }
 
         public void EvalLeer(CNodo nodo)
         {
-            String mostrar = nodo.Hijo.Hermano.Hermano.Dato;
+            String mostrar = nodo.Hijo.Hermano.Hermano.Descripcion;
             Double valorIngresado = 0D;
             FormLeer formLeer = new FormLeer(mostrar);
             formLeer.ShowDialog();
@@ -103,12 +103,12 @@ namespace Proyecto_Final
                 throw new ArgumentException("Debe de agregar un valor", "parametro");
             }
             Double.TryParse(formLeer.ValorIngresado, out valorIngresado);
-            mapaDatos.Add(nodo.Hijo.Hermano.Hermano.Hermano.Hermano.Dato, valorIngresado);
+            mapaDatos.Add(nodo.Hijo.Hermano.Hermano.Hermano.Hermano.Descripcion, valorIngresado);
         }
 
         public void EvalEscribir(CNodo nodo)
         {
-            String mostrar = nodo.Hijo.Hermano.Hermano.Dato;
+            String mostrar = nodo.Hijo.Hermano.Hermano.Descripcion;
             Double expresionUsuario = EvalExpresion(nodo.Hijo.Hermano.Hermano.Hermano.Hermano);
             listaMostrar.Add(mostrar + expresionUsuario);
         }
@@ -189,17 +189,17 @@ namespace Proyecto_Final
 
         public Double EvalFactor(CNodo nodo)//nodo dato, que puede ser num, id o exp
         {
-            String dato = nodo.Dato;
+            String descripcion = nodo.Descripcion;
             Double valor = 0D;
-            if (!Double.TryParse(dato, out valor))
+            if (!Double.TryParse(descripcion, out valor))
             {
-                if (dato.First() == '(')
+                if (descripcion.First() == '(')
                 {
                     valor = EvalExpresion(nodo.Hermano);
                 }
                 else
                 {
-                    mapaDatos.TryGetValue(dato, out valor);
+                    mapaDatos.TryGetValue(descripcion, out valor);
                 }
             }
             return valor;
