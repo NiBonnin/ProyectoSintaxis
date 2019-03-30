@@ -78,28 +78,14 @@ namespace Proyecto_Final
             bool estado = true;  // es true mientras no halla dos terminales diferentes en tope y lexema[0]
             string[] terminales = tas.GetTerminales();
 
+            String valorDato = "";
             while (tope != "$" && lexemas[0] != "$" && estado)  // mientras top sea diferente de fin y la lista no este vacia
             {
                 if (lexemas[0].Contains("STRING@") || lexemas[0].Contains("id@") || lexemas[0].Contains("num@"))
                 {
                     String[] lexemaAux = lexemas[0].Split('@');
                     lexemas[0] = lexemaAux[0];
-                    String valorDato = lexemaAux[1];
-                    int i = -1;
-                    switch (lexemas[0])
-                    {
-                        case "STRING":
-                            i = 0;
-                            break;
-                        case "id":
-                            i = 1;
-                            break;
-                        case "num":
-                            i = 2;
-                            break;
-                        default:
-                            break;
-                    }
+                    valorDato = lexemaAux[1];
                 }
 
                 if (tope == lexemas[0]) // se van eliminando el primero del vector con lexemas
@@ -120,6 +106,10 @@ namespace Proyecto_Final
                     pila.Pop();                // desapila el top
                     nodoAux = arbol.BuscarNoTratado(tope, raiz); // busca el nodo no tratado para luego insertarle los hijos
                     arbol.BuscarNoTratado(tope, raiz).Tratado = true; // cambia el valor a true ya que va a insertar los datos en ese nodo
+                    if (valorPosTas != null && (valorPosTas.Equals("STRING") || valorPosTas.Equals("id") || valorPosTas.Equals("num")))
+                    {
+                        nodoAux.Descripcion = valorDato;
+                    }
                     CargarHojas(valorPosTas, nodoAux); // carga en el arbol el valor de la tas
                     ApilarCampo(valorPosTas); // apila lo correspondiente a la interseccion de fila y columna , si el valor es nulo no hace nada
                     tope = Convert.ToString(pila.Peek());

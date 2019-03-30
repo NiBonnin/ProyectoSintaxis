@@ -25,10 +25,7 @@ namespace Proyecto_Final
             {
                 raiz = new CNodo();
                 raiz.Dato = pDato;
-                raiz.Descripcion = pNodo.Descripcion;
                 raiz.Tratado = false;
-                raiz.Hijo = null;
-                raiz.Hermano = null;
                 return raiz;
             }
             if(pNodo.Hijo==null)
