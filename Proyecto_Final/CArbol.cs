@@ -9,9 +9,8 @@ namespace Proyecto_Final
     class CArbol
     {
         private CNodo raiz;
-        private CNodo trabajo;
 
-        internal CNodo Raiz { get =>this.raiz; }
+        public CNodo Raiz { get =>this.raiz; }
 
         public CArbol()
         {
@@ -21,49 +20,31 @@ namespace Proyecto_Final
         public CNodo Insertar(string pDato, CNodo pNodo)
         {
             //si no hay nodo donde insertar, tomamos como si fuera en la raiz
-            if(pNodo==null)
+            if(pNodo == null)
             {
-                raiz = new CNodo();
                 raiz.Dato = pDato;
-                raiz.Tratado = false;
                 return raiz;
             }
-            if(pNodo.Hijo==null)
+
+            CNodo temp = new CNodo();
+            temp.Dato = pDato;
+            temp.Descripcion = pNodo.Descripcion;
+            if (pNodo.Hijo==null)
             {
-                CNodo temp = new CNodo();
-
-                temp.Dato = pDato;
-                temp.Descripcion = pNodo.Descripcion;
-
-                // Conectamos el nuevo nodo como hijo
                 pNodo.Hijo = temp;
-
-                return temp;
             }
-            else // ya tiene un hijo tenemos que insertarlo como hermano
+            else //Ya tiene hijo
             {
-                trabajo = pNodo.Hijo;
-
-                //Avanzamos hasta el ultimo hermano
-                while(trabajo.Hermano!=null)
+                CNodo nodoAux = pNodo.Hijo;
+                while(nodoAux.Hermano!=null) //Se busca hermano null
                 {
-                    trabajo = trabajo.Hermano;
+                    nodoAux = nodoAux.Hermano;
                 }
-
-                // creamos nodo temporal
-                CNodo temp = new CNodo();
-
-                temp.Dato = pDato;
-                temp.Descripcion = pNodo.Descripcion;
-                temp.Tratado = false;
-
-                // Unimos el temp al ultimo hermano
-                trabajo.Hermano = temp;
-
-                return temp;
+                nodoAux.Hermano = temp;
             }
+            return temp;
 
-           }
+        }
 
         public CNodo Buscar(string pDato, CNodo pNodo)  // Recursivo, busca un nodo segun un dato y a partir de un nodo ingresado para iniciar la busqueda
         { 
@@ -129,11 +110,6 @@ namespace Proyecto_Final
                     return encontrado;
             }
             return encontrado;
-        }
-
-        public static bool IsNullOrEmpty(String[] array)
-        {
-            return (array == null || array.Length == 0);
         }
     }
 }

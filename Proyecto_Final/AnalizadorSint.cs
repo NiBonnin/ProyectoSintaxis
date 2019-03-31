@@ -42,12 +42,21 @@ namespace Proyecto_Final
         {
             if (campo != null)
             {
-                string[] separados;
-                separados = campo.Split();
-                separados = separados.Where(i => i != "").ToArray();
-                int longseparados = separados.Length;
-
-                for (int c = 0; c < longseparados; c++)
+                string[] separados = campo.Split().Where(i => i != "").ToArray();
+                if(separados[0].Equals("READ") || separados[0].Equals("WRITE"))
+                {
+                    int i = 2;
+                    String valorString = "";
+                    while (!separados[i].Equals(","))
+                    {
+                        valorString += separados[i] + " ";
+                        i++;
+                    }
+                    int tam = separados.Length;
+                    String[] separadosAux = { separados[0], separados[1], valorString, separados[tam - 3], separados[tam - 2], separados[tam - 1] };
+                    separados = separadosAux;
+                }
+                for (int c = 0; c < separados.Length; c++)
                 {
                     arbol.Insertar(separados[c], nodo);
                 }
@@ -75,13 +84,13 @@ namespace Proyecto_Final
             int longlexemas = lexemas.Length;
             //puntero  para recorrer lexemas 
             string tope = Convert.ToString(pila.Peek());
-            bool estado = true;  // es true mientras no halla dos terminales diferentes en tope y lexema[0]
+            bool estado = true;  // es true mientras no haya dos terminales diferentes en tope y lexema[0]
             string[] terminales = tas.GetTerminales();
 
             String valorDato = "";
             while (tope != "$" && lexemas[0] != "$" && estado)  // mientras top sea diferente de fin y la lista no este vacia
             {
-                if (lexemas[0].Contains("STRING@") || lexemas[0].Contains("id@") || lexemas[0].Contains("num@"))
+                if (lexemas[0].Contains("STRING@") || lexemas[0].Contains("id@") || lexemas[0].Contains("num@") || lexemas[0].Contains("oprel@"))
                 {
                     String[] lexemaAux = lexemas[0].Split('@');
                     lexemas[0] = lexemaAux[0];
@@ -90,11 +99,11 @@ namespace Proyecto_Final
 
                 if (tope == lexemas[0]) // se van eliminando el primero del vector con lexemas
                 {
-                    eliminarPrimero(); 
+                    eliminarPrimero();
                     pila.Pop();
                     tope = Convert.ToString(pila.Peek());
                 }
-                else if(EsTerminal(tope,terminales) && EsTerminal(lexemas[0],terminales) && tope!=lexemas[0]) // para de analizar si tope != de lexema y ambos son terminales
+                else if (EsTerminal(tope, terminales) && EsTerminal(lexemas[0], terminales) && tope != lexemas[0]) // para de analizar si tope != de lexema y ambos son terminales
                 {
                     estado = false;
                 }
@@ -105,12 +114,33 @@ namespace Proyecto_Final
                     string valorPosTas = tas.Elemento(posfila, poscolumna);
                     pila.Pop();                // desapila el top
                     nodoAux = arbol.BuscarNoTratado(tope, raiz); // busca el nodo no tratado para luego insertarle los hijos
-                    arbol.BuscarNoTratado(tope, raiz).Tratado = true; // cambia el valor a true ya que va a insertar los datos en ese nodo
-                    if (valorPosTas != null && (valorPosTas.Equals("STRING") || valorPosTas.Equals("id") || valorPosTas.Equals("num")))
+                    nodoAux.Tratado = true; // cambia el valor a true ya que va a insertar los datos en ese nodo
+                    if (valorPosTas != null && (valorPosTas.Contains("READ") || valorPosTas.Contains("WRITE")))
                     {
-                        nodoAux.Descripcion = valorDato;
+                        String valorCampo = lexemas[2].Split('@')[1];
+                        String nombreId = lexemas[4].Split('@')[1];
+                        String nuevaValorPosTas = valorPosTas.Replace("STRING", valorCampo).Replace("id", nombreId);
+                        CargarHojas(nuevaValorPosTas, nodoAux);
                     }
-                    CargarHojas(valorPosTas, nodoAux); // carga en el arbol el valor de la tas
+                    else if (valorPosTas != null && valorPosTas.Contains("id"))
+                    {
+                        String nuevaValorPosTas = valorPosTas.Replace("id", valorDato);
+                        CargarHojas(nuevaValorPosTas, nodoAux);
+                    }
+                    else if (valorPosTas != null && valorPosTas.Contains("num"))
+                    {
+                        String nuevaValorPosTas = valorPosTas.Replace("num", valorDato);
+                        CargarHojas(nuevaValorPosTas, nodoAux);
+                    }
+                    else if (valorPosTas != null && valorPosTas.Contains("oprel"))
+                    {
+                        String nuevaValorPosTas = valorPosTas.Replace("oprel", lexemas[1].Split('@')[1]);
+                        CargarHojas(nuevaValorPosTas, nodoAux);
+                    }
+                    else 
+                    {
+                        CargarHojas(valorPosTas, nodoAux); // carga en el arbol el valor de la tas
+                    }
                     ApilarCampo(valorPosTas); // apila lo correspondiente a la interseccion de fila y columna , si el valor es nulo no hace nada
                     tope = Convert.ToString(pila.Peek());
                 }

@@ -118,7 +118,7 @@ namespace Proyecto_Final
                             case '<':
                                 lexema += tokenconcatenar;
                                 lexemas.Add(lexema);
-                                analizar.Add("oprel");
+                                analizar.Add("oprel@" + lexema);
                                 descripcion.Add(reconocer(lexema));
                                 lexema = "";
                                 estadoPrincipal = 0;
@@ -126,7 +126,7 @@ namespace Proyecto_Final
                             case '>':
                                 lexema += tokenconcatenar;
                                 lexemas.Add(lexema);
-                                analizar.Add("oprel");
+                                analizar.Add("oprel@" + lexema);
                                 descripcion.Add(reconocer(lexema));
                                 lexema = "";
                                 estadoPrincipal = 0;
@@ -537,7 +537,7 @@ namespace Proyecto_Final
                         {
                             lexema += tokenconcatenar;
                             lexemas.Add(lexema);
-                            analizar.Add("oprel");
+                            analizar.Add("oprel@" + lexema);
                             descripcion.Add(reconocer(lexema));
                             lexema = "";
                             estadoPrincipal = 0;
@@ -553,11 +553,11 @@ namespace Proyecto_Final
                         }
                         break;
                     case 13:
-                        if (tokenconcatenar.Equals('='))  // este par el ==
+                        if (tokenconcatenar.Equals('='))  // este par el !=
                         {
                             lexema += tokenconcatenar;
                             lexemas.Add(lexema);
-                            analizar.Add("oprel");
+                            analizar.Add("oprel@" + lexema);
                             descripcion.Add(reconocer(lexema));
                             lexema = "";
                             estadoPrincipal = 0;

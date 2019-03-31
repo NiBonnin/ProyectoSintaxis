@@ -37,10 +37,6 @@ namespace Proyecto_Final
                     EvalProg(nodoEncontrado.Hermano.Hermano);
                 }
             }
-            foreach (KeyValuePair<String, Double> pair in mapaDatos)
-            {
-                listaMostrar.Add(pair.Key + "   " + pair.Value);
-            }
             return listaMostrar;
         }
 
@@ -48,9 +44,9 @@ namespace Proyecto_Final
         {
             if (nodo.Hijo != null)
             {
-                EvalSentencia(nodo.Hijo);
+                EvalSentencia(nodo.Hijo.Hijo);
                 CNodo siguienteProg = nodo.Hijo.Hermano.Hermano;
-                if (siguienteProg.Hijo != null)
+                if (siguienteProg.Hijo != null && !String.IsNullOrEmpty(siguienteProg.Hijo.Dato))
                 {
                     EvalProg(siguienteProg);
                 }
@@ -89,12 +85,19 @@ namespace Proyecto_Final
         {
             CNodo nodoVariable = nodo.Hijo;
             CNodo nodoExpresion = nodoVariable.Hermano.Hermano;
-            mapaDatos.Add(nodoVariable.Descripcion, EvalExpresion(nodoExpresion));
+            if (mapaDatos.ContainsKey(nodoVariable.Dato))
+            {
+                mapaDatos[nodoVariable.Dato] = EvalExpresion(nodoExpresion);
+            }
+            else
+            {
+                mapaDatos.Add(nodoVariable.Dato, EvalExpresion(nodoExpresion));
+            }
         }
 
         public void EvalLeer(CNodo nodo)
         {
-            String mostrar = nodo.Hijo.Hermano.Hermano.Descripcion;
+            String mostrar = nodo.Hijo.Hermano.Hermano.Dato;
             Double valorIngresado = 0D;
             FormLeer formLeer = new FormLeer(mostrar);
             formLeer.ShowDialog();
@@ -103,12 +106,12 @@ namespace Proyecto_Final
                 throw new ArgumentException("Debe de agregar un valor", "parametro");
             }
             Double.TryParse(formLeer.ValorIngresado, out valorIngresado);
-            mapaDatos.Add(nodo.Hijo.Hermano.Hermano.Hermano.Hermano.Descripcion, valorIngresado);
+            mapaDatos.Add(nodo.Hijo.Hermano.Hermano.Hermano.Hermano.Dato, valorIngresado);
         }
 
         public void EvalEscribir(CNodo nodo)
         {
-            String mostrar = nodo.Hijo.Hermano.Hermano.Descripcion;
+            String mostrar = nodo.Hijo.Hermano.Hermano.Dato;
             Double expresionUsuario = EvalExpresion(nodo.Hijo.Hermano.Hermano.Hermano.Hermano);
             listaMostrar.Add(mostrar + expresionUsuario);
         }
@@ -155,7 +158,7 @@ namespace Proyecto_Final
             {
                 Double var1 = EvalTermino(nodoTermino);
                 CNodo nodoOperacionSumaResta = nodoTermino.Hermano.Hijo;
-                if (nodoOperacionSumaResta != null) {
+                if (nodoOperacionSumaResta != null && !String.IsNullOrEmpty(nodoOperacionSumaResta.Dato)) {
                     Double var2 = EvalExpresion(nodoOperacionSumaResta.Hermano);
                     var1 += (nodoOperacionSumaResta.Dato == "+") ? var2 : (var2 * -1); //evalua expresion, si verdadero suma var2, else suma negativo var2
                 }
@@ -183,24 +186,29 @@ namespace Proyecto_Final
                         var1 = var1 / var2;
                     }
                 }
+                return var1;
             }
             return 0D;
         }
 
         public Double EvalFactor(CNodo nodo)//nodo dato, que puede ser num, id o exp
         {
-            String descripcion = nodo.Descripcion;
+            String Dato = nodo.Dato;
             Double valor = 0D;
-            if (!Double.TryParse(descripcion, out valor))
+            if (!Double.TryParse(Dato, out valor))
             {
-                if (descripcion.First() == '(')
+                if (Dato.First() == '(')
                 {
                     valor = EvalExpresion(nodo.Hermano);
                 }
                 else
                 {
-                    mapaDatos.TryGetValue(descripcion, out valor);
+                    mapaDatos.TryGetValue(Dato, out valor);
                 }
+            }
+            else
+            {
+                Double.TryParse(Dato, out valor);
             }
             return valor;
         }
@@ -212,7 +220,7 @@ namespace Proyecto_Final
 
         public Boolean EvalAnd(CNodo nodo)
         {
-            if(nodo.Hijo != null)
+            if(nodo.Hijo != null && !String.IsNullOrEmpty(nodo.Hijo.Dato))
             {
                 return EvalCondAnd(nodo.Hijo.Hermano);
             }
@@ -221,11 +229,11 @@ namespace Proyecto_Final
 
         public Boolean EvalOr(CNodo nodo)
         {
-            if (nodo.Hijo != null)
+            if (nodo.Hijo != null && !String.IsNullOrEmpty(nodo.Hijo.Dato))
             {
                 return EvalCondicion(nodo.Hijo.Hermano);
             }
-            return true;
+            return false;
         }
 
         public Boolean EvalCondNot(CNodo nodo)
