@@ -5,7 +5,7 @@
 
 **Asigacion**
 
-  variable = dato_numerico;
+  variable = datoNumerico;
 
 
 **Operaciones**
