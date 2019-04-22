@@ -11,7 +11,7 @@
 **Operaciones**
   
   \+ - / *\
-  *Ejemplo: 1 + 1;*
+  *Ejemplo:* 1 + 1;
 
 
 **Relacionales**
@@ -40,6 +40,5 @@
   
 **Condicion**
 
-  _Negar expresión:_ NOT
-  
-  _Agregar más condiciones:_ AND OR
+  *Negar expresión:* NOT
+  *Agregar más condiciones:* AND OR
