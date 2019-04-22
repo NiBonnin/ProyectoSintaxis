@@ -3,7 +3,7 @@
 ## Proyecto final de la materia Sintaxis y Semantica de los Lenguajes en UTN FRCU
 
 
-**Asigacion**
+**Asigación**
 
   variable = datoNumerico;
 
@@ -38,7 +38,8 @@
 
   WHILE (condicion) DO codigo a ejecutar END;
   
-**Condicion**
+**Condición**
 
   *Negar expresión:* NOT
+
   *Agregar más condiciones:* AND OR
