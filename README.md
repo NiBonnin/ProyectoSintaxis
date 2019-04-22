@@ -37,3 +37,7 @@
 **Ciclo**
 
   WHILE (condicion) DO codigo a ejecutar END;
+  
+**Condicion**
+  _Negar expresión:_ NOT
+  _Agregar más condiciones:_ AND OR
