@@ -15,6 +15,7 @@ namespace Proyecto_Final
         public FormInterprete()
         {
             InitializeComponent();
+            tboxCodigoAAnalizar.ScrollBars = ScrollBars.Vertical;
         }
 
         private void btnReconocerElementos_Click(object sender, EventArgs e)
@@ -114,6 +115,41 @@ namespace Proyecto_Final
         {
             reiniciar();
             tboxCodigoAAnalizar.Clear();
+        }
+
+        private void btnPrograma3_Click(object sender, EventArgs e)
+        {
+            String programa = "READ(\"ingrese el valor x1\", x1);" + Environment.NewLine +
+                "READ(\"ingrese el valor y1\", y1);" + Environment.NewLine +
+                "READ(\"ingrese el valor x2\", x2);" + Environment.NewLine +
+                "READ(\"ingrese el valor y2\", y2);" + Environment.NewLine +
+                "a1 = x2 - x1;" + Environment.NewLine +
+                "a2 = y2 - y1;" + Environment.NewLine +
+                "a1 = a1 * a1;" + Environment.NewLine +
+                "a2 = a2 * a2;" + Environment.NewLine +
+                "a = a1 + a2;" + Environment.NewLine +
+                "c = 1;" + Environment.NewLine +
+                "e = 0;" + Environment.NewLine +
+                "c1 = a - (c * c);" + Environment.NewLine +
+                "c2 = 0;" + Environment.NewLine +
+                "IF(c + 1) * (c + 1) > a THEN" + Environment.NewLine +
+                "   c2 = ((c + 1) * (c + 1)) - a;" + Environment.NewLine +
+                "ELSE" + Environment.NewLine +
+                "   c2 = a - ((c + 1) * (c + 1));" + Environment.NewLine +
+                "END;" + Environment.NewLine +
+                "WHILE c1 > c2 DO" + Environment.NewLine +
+                "   e = (c + 1) * (c + 1);" + Environment.NewLine +
+                "   c = c + 1;" + Environment.NewLine +
+                "   c1 = a - (c * c);" + Environment.NewLine +
+                "   IF(c + 1) * (c + 1) > a THEN" + Environment.NewLine +
+                "       c2 = ((c + 1) * (c + 1)) - a;" + Environment.NewLine +
+                "   ELSE" + Environment.NewLine +
+                "       c2 = a - ((c + 1) * (c + 1));" + Environment.NewLine +
+                "   END;" + Environment.NewLine +
+                "END;" + Environment.NewLine +
+                "r = (a + e) / (c * 2);" + Environment.NewLine +
+                "WRITE(\"Norma Euclidiana\" , r);" + Environment.NewLine;
+            tboxCodigoAAnalizar.Text = programa;
         }
     }
 }

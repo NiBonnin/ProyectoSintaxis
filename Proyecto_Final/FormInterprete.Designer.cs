@@ -40,6 +40,7 @@
             this.btnPrograma2 = new System.Windows.Forms.Button();
             this.lblCargarPrograma = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnPrograma3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridTablaLexemas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,11 +152,22 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // btnPrograma3
+            // 
+            this.btnPrograma3.Location = new System.Drawing.Point(323, 213);
+            this.btnPrograma3.Name = "btnPrograma3";
+            this.btnPrograma3.Size = new System.Drawing.Size(75, 23);
+            this.btnPrograma3.TabIndex = 11;
+            this.btnPrograma3.Text = "N Euclidiana";
+            this.btnPrograma3.UseVisualStyleBackColor = true;
+            this.btnPrograma3.Click += new System.EventHandler(this.btnPrograma3_Click);
+            // 
             // FormInterprete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnPrograma3);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblCargarPrograma);
             this.Controls.Add(this.btnPrograma2);
@@ -188,6 +200,7 @@
         private System.Windows.Forms.Button btnPrograma2;
         private System.Windows.Forms.Label lblCargarPrograma;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnPrograma3;
     }
 }
 

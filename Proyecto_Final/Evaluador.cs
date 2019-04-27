@@ -170,20 +170,23 @@ namespace Proyecto_Final
         public Double EvalTermino(CNodo nodo)
         {
             CNodo nodoFactor = nodo.Hijo;
-            if(nodoFactor.Hijo != null)
+            if(nodoFactor != null && nodoFactor.Hijo != null)
             {
                 Double var1 = EvalFactor(nodoFactor.Hijo);
-                CNodo nodoOperacionMultDiv = nodoFactor.Hijo.Hermano;
-                if(nodoOperacionMultDiv != null)
+                if (nodoFactor.Hermano != null)
                 {
-                    Double var2 = EvalTermino(nodoOperacionMultDiv.Hermano);
-                    if(nodoOperacionMultDiv.Dato == "*")
+                    CNodo nodoOperacionMultDiv = nodoFactor.Hermano.Hijo;
+                    if (nodoOperacionMultDiv != null && !String.IsNullOrEmpty(nodoOperacionMultDiv.Dato))
                     {
-                        var1 = var1 * var2;
-                    }
-                    else
-                    {
-                        var1 = var1 / var2;
+                        Double var2 = EvalTermino(nodoOperacionMultDiv.Hermano);
+                        if (nodoOperacionMultDiv.Dato == "*")
+                        {
+                            var1 = var1 * var2;
+                        }
+                        else if (nodoOperacionMultDiv.Dato == "/")
+                        {
+                            var1 = var1 / var2;
+                        }
                     }
                 }
                 return var1;
