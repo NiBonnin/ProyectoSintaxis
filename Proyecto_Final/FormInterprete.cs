@@ -119,10 +119,10 @@ namespace Proyecto_Final
 
         private void btnPrograma3_Click(object sender, EventArgs e)
         {
-            String programa = "READ(\"ingrese el valor x1\", x1);" + Environment.NewLine +
-                "READ(\"ingrese el valor y1\", y1);" + Environment.NewLine +
-                "READ(\"ingrese el valor x2\", x2);" + Environment.NewLine +
-                "READ(\"ingrese el valor y2\", y2);" + Environment.NewLine +
+            String programa = "READ(\"Ingrese el valor de x1\", x1);" + Environment.NewLine +
+                "READ(\"Ingrese el valor de y1\", y1);" + Environment.NewLine +
+                "READ(\"Ingrese el valor de x2\", x2);" + Environment.NewLine +
+                "READ(\"Ingrese el valor de y2\", y2);" + Environment.NewLine +
                 "a1 = x2 - x1;" + Environment.NewLine +
                 "a2 = y2 - y1;" + Environment.NewLine +
                 "a1 = a1 * a1;" + Environment.NewLine +
