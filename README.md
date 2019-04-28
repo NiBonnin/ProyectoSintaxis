@@ -13,6 +13,7 @@
   \+ - / *\
   *Ejemplo:* 1 + 1;
 
+  *Separadores entre operaciones*: ( )
 
 **Relacionales**
 
@@ -43,3 +44,5 @@
   *Negar expresión:* NOT
 
   *Agregar más condiciones:* AND OR
+  
+  *Separadores entre condiciones*: \[ \]
