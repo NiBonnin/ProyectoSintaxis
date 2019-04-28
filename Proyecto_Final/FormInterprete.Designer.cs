@@ -41,6 +41,7 @@
             this.lblCargarPrograma = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnPrograma3 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridTablaLexemas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,7 +137,7 @@
             // lblCargarPrograma
             // 
             this.lblCargarPrograma.AutoSize = true;
-            this.lblCargarPrograma.Location = new System.Drawing.Point(89, 188);
+            this.lblCargarPrograma.Location = new System.Drawing.Point(45, 188);
             this.lblCargarPrograma.Name = "lblCargarPrograma";
             this.lblCargarPrograma.Size = new System.Drawing.Size(148, 13);
             this.lblCargarPrograma.TabIndex = 9;
@@ -162,11 +163,22 @@
             this.btnPrograma3.UseVisualStyleBackColor = true;
             this.btnPrograma3.Click += new System.EventHandler(this.btnPrograma3_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(243, 213);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Sumatoria N";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnPrograma4_Click);
+            // 
             // FormInterprete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnPrograma3);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblCargarPrograma);
@@ -201,6 +213,7 @@
         private System.Windows.Forms.Label lblCargarPrograma;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnPrograma3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

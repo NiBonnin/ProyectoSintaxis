@@ -151,5 +151,21 @@ namespace Proyecto_Final
                 "WRITE(\"Norma Euclidiana\" , r);" + Environment.NewLine;
             tboxCodigoAAnalizar.Text = programa;
         }
+
+        private void btnPrograma4_Click(object sender, EventArgs e)
+        {
+            String programa= "READ(\"ingrese un numero\", n);" + Environment.NewLine +
+                             "c = 1;" + Environment.NewLine +
+                             "a = 0;" + Environment.NewLine +
+                             "WHILE c < n DO" + Environment.NewLine +
+                             "a = a + c;" + Environment.NewLine +
+                             "c = c + 1;" + Environment.NewLine +
+                             "END;" + Environment.NewLine +
+                             "a = a + c;" + Environment.NewLine +
+                             "WRITE(\"Sumatoria Resultado\", a);";
+
+            tboxCodigoAAnalizar.Text = programa;
+
+        }
     }
 }
