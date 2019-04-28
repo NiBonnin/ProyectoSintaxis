@@ -15,7 +15,6 @@ namespace Proyecto_Final
         public FormInterprete()
         {
             InitializeComponent();
-            tboxCodigoAAnalizar.ScrollBars = ScrollBars.Vertical;
         }
 
         private void btnReconocerElementos_Click(object sender, EventArgs e)
@@ -105,7 +104,7 @@ namespace Proyecto_Final
             String programa = "READ(\"Ingresar dato\", a);" + Environment.NewLine +
                               "b = 4;" + Environment.NewLine +
                               "WHILE b < 10 DO "+ Environment.NewLine +
-                              "b = b + a;"  + Environment.NewLine +
+                              " b = b + a;"  + Environment.NewLine +
                               "END;" + Environment.NewLine +
                               "WRITE(\"Valor resultado de b\", b);";
             tboxCodigoAAnalizar.Text = programa;
@@ -154,18 +153,22 @@ namespace Proyecto_Final
 
         private void btnPrograma4_Click(object sender, EventArgs e)
         {
-            String programa= "READ(\"ingrese un numero\", n);" + Environment.NewLine +
+            String programa= "READ(\"Ingrese un numero\", n);" + Environment.NewLine +
                              "c = 1;" + Environment.NewLine +
                              "a = 0;" + Environment.NewLine +
                              "WHILE c < n DO" + Environment.NewLine +
-                             "a = a + c;" + Environment.NewLine +
-                             "c = c + 1;" + Environment.NewLine +
+                             "  a = a + c;" + Environment.NewLine +
+                             "  c = c + 1;" + Environment.NewLine +
                              "END;" + Environment.NewLine +
                              "a = a + c;" + Environment.NewLine +
                              "WRITE(\"Sumatoria Resultado\", a);";
-
             tboxCodigoAAnalizar.Text = programa;
+        }
 
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            FormInfo formInfo = new FormInfo();
+            formInfo.Show();
         }
     }
 }

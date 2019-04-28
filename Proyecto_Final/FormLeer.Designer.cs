@@ -69,6 +69,7 @@
             this.Controls.Add(this.lblTexto);
             this.Controls.Add(this.tboxDato);
             this.Name = "FormLeer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ventana ingreso dato";
             this.ResumeLayout(false);
             this.PerformLayout();

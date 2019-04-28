@@ -42,6 +42,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnPrograma3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnInfo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGridTablaLexemas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             this.tboxCodigoAAnalizar.Location = new System.Drawing.Point(33, 64);
             this.tboxCodigoAAnalizar.Multiline = true;
             this.tboxCodigoAAnalizar.Name = "tboxCodigoAAnalizar";
+            this.tboxCodigoAAnalizar.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tboxCodigoAAnalizar.Size = new System.Drawing.Size(365, 113);
             this.tboxCodigoAAnalizar.TabIndex = 0;
             // 
@@ -145,7 +147,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(667, 390);
+            this.btnLimpiar.Location = new System.Drawing.Point(323, 357);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 10;
@@ -173,11 +175,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnPrograma4_Click);
             // 
+            // btnInfo
+            // 
+            this.btnInfo.Location = new System.Drawing.Point(667, 390);
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(75, 23);
+            this.btnInfo.TabIndex = 13;
+            this.btnInfo.Text = "Info";
+            this.btnInfo.UseVisualStyleBackColor = true;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            // 
             // FormInterprete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnInfo);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnPrograma3);
             this.Controls.Add(this.btnLimpiar);
@@ -191,6 +204,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tboxCodigoAAnalizar);
             this.Name = "FormInterprete";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Interprete";
             ((System.ComponentModel.ISupportInitialize)(this.dGridTablaLexemas)).EndInit();
             this.ResumeLayout(false);
@@ -214,6 +228,7 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnPrograma3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnInfo;
     }
 }
 
