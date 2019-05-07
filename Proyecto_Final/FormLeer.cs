@@ -36,5 +36,10 @@ namespace Proyecto_Final
         }
 
         public String ValorIngresado { get => this.tboxDato.Text;}
+
+        private void tboxDato_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

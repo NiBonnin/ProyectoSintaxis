@@ -39,6 +39,7 @@
             this.tboxDato.Name = "tboxDato";
             this.tboxDato.Size = new System.Drawing.Size(100, 20);
             this.tboxDato.TabIndex = 0;
+            this.tboxDato.TextChanged += new System.EventHandler(this.tboxDato_TextChanged);
             this.tboxDato.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tboxDato_KeyPress);
             // 
             // lblTexto

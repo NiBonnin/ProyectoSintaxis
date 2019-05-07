@@ -19,7 +19,7 @@ namespace Proyecto_Final
         List<string> lexemas;
         List<string> descripcion;
         List<string> analizar; // va a contener los que se va a pasar al sintactico detectando que no y eso
-        bool estaLeyendoString = false;
+
 
         public void AutomataReconocedor()
         {
@@ -30,10 +30,7 @@ namespace Proyecto_Final
             for (inicioEstado = 0; inicioEstado < cadenaentrada.Length; inicioEstado++)
             {
                 tokenconcatenar = cadenaentrada[inicioEstado];
-                if (!(estaLeyendoString) && tokenconcatenar.Equals(' '))
-                {
-                    tokenconcatenar = '_';
-                }
+
                 switch(estadoPrincipal)
                 {
                     case 0: // primero si es palabra reservada
@@ -89,11 +86,7 @@ namespace Proyecto_Final
                                 break;
                             case '-':
                                 lexema += tokenconcatenar;
-                                lexemas.Add(lexema);
-                                analizar.Add(lexema);
-                                descripcion.Add(reconocer(lexema));
-                                lexema = "";
-                                estadoPrincipal = 0;
+                                estadoPrincipal = 17;
                                 break;
                             case '*':
                                 lexema += tokenconcatenar;
@@ -186,9 +179,8 @@ namespace Proyecto_Final
                             case '"':
                                 lexema = "";
                                 estadoPrincipal = 14;
-                                estaLeyendoString = true;
                                 break;
-                            case '_':
+                            case ' ': // cuando encuentra cractaer vacio lo ignora
                                 break;
                             case '$':             // si es final de la cadena lo almaceno solo en la que le paso al anlizador sintactico
                                 lexema += tokenconcatenar;
@@ -224,6 +216,11 @@ namespace Proyecto_Final
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 1;
+                        }
+                        else if(tokenconcatenar.Equals(',')) //para reconoser coma en reales
+                        {
+                            lexema += tokenconcatenar;
+                            estadoPrincipal = 16;
                         }
                         else
                         {
@@ -573,18 +570,22 @@ namespace Proyecto_Final
                         }
                         break;
                     case 14:
-                        if(!tokenconcatenar.Equals('"'))
+                        if(!tokenconcatenar.Equals('"') && !tokenconcatenar.Equals("$"))
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 14;
                         }
+                        else if(tokenconcatenar.Equals("$"))
+                        {
+                            estadoPrincipal = 0;
+                            inicioEstado = inicioEstado - 1; ;
+                        }
                         else
                         {
-                            lexemas.Add(lexema);
+                            lexemas.Add(lexema.Trim()); //trim elimina los espacio en blanco al final y principio de cadena
                             //analizar.Add("STRING");
-                            analizar.Add("STRING@" + lexema);
+                            analizar.Add("STRING@" + lexema.Trim());
                             descripcion.Add("STRING");
-                            estaLeyendoString = false;
                             lexema = "";
                             estadoPrincipal = 0;
                         }
@@ -629,6 +630,59 @@ namespace Proyecto_Final
                             inicioEstado = inicioEstado - 1;
                         }
                         break;
+                    case 16:     // reconoce num dsp de la primer coma
+                        if (num.Contains(tokenconcatenar)) // al final probar si reconoce num y string
+                        {
+                            lexema += tokenconcatenar;
+                            estadoPrincipal = 1;
+                        }
+
+                        else
+                        {
+                            lexemas.Add(lexema);
+                            descripcion.Add("Numero");
+                            //analizar.Add("num");
+                            analizar.Add("num@" + lexema);
+                            if (tokenconcatenar.Equals('$')) // si el ultimo guardo lexema y despues final cadena
+                            {
+                                lexema = Convert.ToString(tokenconcatenar);
+                                analizar.Add(lexema);
+                            }
+                            else
+                            {
+                                estadoPrincipal = 0;
+                                inicioEstado = inicioEstado - 1;   //retrocede uno en el for y  ahora ve si es string
+                                lexema = "";
+                            }
+                        }
+                         break;
+
+                    case 17:
+                        if (num.Contains(tokenconcatenar))  // si viene nnumero dsp del - real negativos
+                        {
+                            lexema += tokenconcatenar;
+                            estadoPrincipal = 1;
+
+  
+                        }
+                        else  // si viene otra cosa  reconose la operacion resta
+                        {
+
+                            lexemas.Add(lexema);
+                            analizar.Add(lexema);
+                            descripcion.Add(reconocer(lexema));
+                            lexema = "";
+                            inicioEstado = inicioEstado - 1;
+                            estadoPrincipal = 0;
+
+                        }
+                        
+
+
+
+                        break;
+
+
                 }
             }
         }
