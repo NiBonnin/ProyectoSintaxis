@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Proyecto_Final
 {
@@ -15,6 +16,7 @@ namespace Proyecto_Final
         public FormInterprete()
         {
             InitializeComponent();
+           
         }
 
         private void btnReconocerElementos_Click(object sender, EventArgs e)
@@ -67,7 +69,7 @@ namespace Proyecto_Final
             {
                 textoResultado = "Se ha ingresado un caracter desconocido";
             }
-            MessageBox.Show(textoResultado);
+            MessageBox.Show(textoResultado, "RESULTADO");
         }
 
         private void btnEvaluar_Click(object sender, EventArgs e)
@@ -178,6 +180,16 @@ namespace Proyecto_Final
         {
             FormInfo formInfo = new FormInfo();
             formInfo.Show();
+        }
+
+        private void btnEvaluar_MouseHover(object sender, EventArgs e)
+        {
+            this.btnEvaluar.BackColor = Color.LawnGreen;
+        }
+
+        private void btnEvaluar_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnEvaluar.BackColor = Color.Transparent; 
         }
     }
 }

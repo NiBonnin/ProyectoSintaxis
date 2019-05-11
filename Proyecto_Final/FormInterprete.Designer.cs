@@ -92,7 +92,7 @@
             this.Column2});
             this.dGridTablaLexemas.Location = new System.Drawing.Point(447, 64);
             this.dGridTablaLexemas.Name = "dGridTablaLexemas";
-            this.dGridTablaLexemas.Size = new System.Drawing.Size(295, 295);
+            this.dGridTablaLexemas.Size = new System.Drawing.Size(264, 295);
             this.dGridTablaLexemas.TabIndex = 4;
             // 
             // Column1
@@ -107,14 +107,17 @@
             // 
             // btnEvaluar
             // 
+            this.btnEvaluar.BackColor = System.Drawing.Color.Transparent;
             this.btnEvaluar.Enabled = false;
             this.btnEvaluar.Location = new System.Drawing.Point(37, 357);
             this.btnEvaluar.Name = "btnEvaluar";
             this.btnEvaluar.Size = new System.Drawing.Size(75, 23);
             this.btnEvaluar.TabIndex = 6;
             this.btnEvaluar.Text = "Evaluar";
-            this.btnEvaluar.UseVisualStyleBackColor = true;
+            this.btnEvaluar.UseVisualStyleBackColor = false;
             this.btnEvaluar.Click += new System.EventHandler(this.btnEvaluar_Click);
+            this.btnEvaluar.MouseLeave += new System.EventHandler(this.btnEvaluar_MouseLeave);
+            this.btnEvaluar.MouseHover += new System.EventHandler(this.btnEvaluar_MouseHover);
             // 
             // btnPrograma1
             // 
@@ -147,7 +150,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(323, 357);
+            this.btnLimpiar.Location = new System.Drawing.Point(447, 390);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 10;
@@ -177,7 +180,7 @@
             // 
             // btnInfo
             // 
-            this.btnInfo.Location = new System.Drawing.Point(667, 390);
+            this.btnInfo.Location = new System.Drawing.Point(636, 390);
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(75, 23);
             this.btnInfo.TabIndex = 13;
