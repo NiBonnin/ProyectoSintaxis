@@ -104,6 +104,7 @@ namespace Proyecto_Final
             if (String.IsNullOrEmpty(formLeer.ValorIngresado))
             {
                 throw new ArgumentException("Debe de agregar un valor", "parametro");
+
             }
             Double.TryParse(formLeer.ValorIngresado, out valorIngresado);
             mapaDatos.Add(nodo.Hijo.Hermano.Hermano.Hermano.Hermano.Dato, valorIngresado);
@@ -267,5 +268,10 @@ namespace Proyecto_Final
                 }
             }
         }
+
+
+ 
+
+
     }
 }

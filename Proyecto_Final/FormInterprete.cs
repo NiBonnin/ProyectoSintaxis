@@ -154,6 +154,12 @@ namespace Proyecto_Final
         private void btnPrograma4_Click(object sender, EventArgs e)
         {
             String programa= "READ(\"Ingrese un numero\", n);" + Environment.NewLine +
+                             "IF n < 0 THEN" + Environment.NewLine +
+                             "n = n * (-1);" + Environment.NewLine +
+                             "x = 1;" + Environment.NewLine +
+                             "ELSE" + Environment.NewLine +
+                             "x = 0;" + Environment.NewLine +
+                             "END;" + Environment.NewLine +
                              "c = 1;" + Environment.NewLine +
                              "a = 0;" + Environment.NewLine +
                              "WHILE c < n DO" + Environment.NewLine +
@@ -161,6 +167,9 @@ namespace Proyecto_Final
                              "  c = c + 1;" + Environment.NewLine +
                              "END;" + Environment.NewLine +
                              "a = a + c;" + Environment.NewLine +
+                             "IF x == 1 THEN" + Environment.NewLine +
+                             "a = a * (-1);" + Environment.NewLine +
+                             "END;" + Environment.NewLine +
                              "WRITE(\"Sumatoria Resultado\", a);";
             tboxCodigoAAnalizar.Text = programa;
         }
