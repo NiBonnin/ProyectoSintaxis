@@ -16,7 +16,6 @@ namespace Proyecto_Final
         public FormInterprete()
         {
             InitializeComponent();
-           
         }
 
         private void btnReconocerElementos_Click(object sender, EventArgs e)
@@ -50,20 +49,20 @@ namespace Proyecto_Final
             String textoResultado;
             if (!elementosReconocidos)  // si el primer elemento esta vacio, no posee nada
             {
-                textoResultado = "No se ha cargado la expresion o no valido el codigo";
+                textoResultado = "No se ha cargado la expresion o no ha valido el codigo";
             }
-            else if (!aLexico.ContieneLexemaDesconocido())  // si no se encontro ningun desconocido , sino no deja hacer analisis lexico
+            else if (!aLexico.ContieneLexemaDesconocido())  // si no se encontro ningun desconocido, entonces no deja analizar lexico
             {
                 string[] tipos = aLexico.GetAnalizar().ToArray();
                 aSint.InicializarPila(); // inicia pila con tope = a simbolo inicial de gramatica y el fondo "$"
                 aSint.SetLexemas(aLexico.GetAnalizar().ToArray());  // carga lexema (en esta pruebe)
                 if (aSint.Analizar())
                 {
-                    textoResultado = "Sintaxis correcta ";
+                    textoResultado = "Sintaxis correcta";
                     btnEvaluar.Enabled = true;
                 }
                 else
-                { textoResultado = "Sintaxis incorrecta "; }
+                { textoResultado = "Sintaxis incorrecta"; }
             }
             else
             {
@@ -157,10 +156,10 @@ namespace Proyecto_Final
         {
             String programa= "READ(\"Ingrese un numero\", n);" + Environment.NewLine +
                              "IF n < 0 THEN" + Environment.NewLine +
-                             "n = n * (-1);" + Environment.NewLine +
-                             "x = 1;" + Environment.NewLine +
+                             "  n = n * (-1);" + Environment.NewLine +
+                             "  x = 1;" + Environment.NewLine +
                              "ELSE" + Environment.NewLine +
-                             "x = 0;" + Environment.NewLine +
+                             "  x = 0;" + Environment.NewLine +
                              "END;" + Environment.NewLine +
                              "c = 1;" + Environment.NewLine +
                              "a = 0;" + Environment.NewLine +
@@ -170,7 +169,7 @@ namespace Proyecto_Final
                              "END;" + Environment.NewLine +
                              "a = a + c;" + Environment.NewLine +
                              "IF x == 1 THEN" + Environment.NewLine +
-                             "a = a * (-1);" + Environment.NewLine +
+                             "  a = a * (-1);" + Environment.NewLine +
                              "END;" + Environment.NewLine +
                              "WRITE(\"Sumatoria Resultado\", a);";
             tboxCodigoAAnalizar.Text = programa;

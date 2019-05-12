@@ -180,9 +180,9 @@ namespace Proyecto_Final
                                 lexema = "";
                                 estadoPrincipal = 14;
                                 break;
-                            case ' ': // cuando encuentra cractaer vacio lo ignora
+                            case ' ': // cuando encuentra caracter vacio lo ignora
                                 break;
-                            case '$':             // si es final de la cadena lo almaceno solo en la que le paso al anlizador sintactico
+                            case '$': // si es final de la cadena lo almaceno solo en la que le paso al anlizador sintactico
                                 lexema += tokenconcatenar;
                                 analizar.Add(lexema);
                                 break;
@@ -212,7 +212,7 @@ namespace Proyecto_Final
                         break;
 
                     case 1:     // reconoce num
-                        if (num.Contains(tokenconcatenar)) // al final probar si reconoce num y string
+                        if (num.Contains(tokenconcatenar))
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 1;
@@ -226,7 +226,6 @@ namespace Proyecto_Final
                         {
                             lexemas.Add(lexema);
                             descripcion.Add("Numero");
-                            //analizar.Add("num");
                             analizar.Add("num@" + lexema);
                             if (tokenconcatenar.Equals('$')) // si el ultimo guardo lexema y despues final cadena
                             {
@@ -236,7 +235,7 @@ namespace Proyecto_Final
                             else
                             {
                                 estadoPrincipal = 0;
-                                inicioEstado = inicioEstado - 1; ;  //retrocede uno en el for y  ahora ve si es string
+                                inicioEstado = inicioEstado - 1; ;  //retrocede uno y ve si es string
                                 lexema = "";
                             }
                         }
@@ -253,7 +252,6 @@ namespace Proyecto_Final
                         {
                             lexemas.Add(lexema);
                             descripcion.Add("Identificador");
-                            //analizar.Add("id");
                             analizar.Add("id@" + lexema);
                             estadoPrincipal = 0;
                             inicioEstado = inicioEstado - 1;
@@ -582,8 +580,7 @@ namespace Proyecto_Final
                         }
                         else
                         {
-                            lexemas.Add(lexema.Trim()); //trim elimina los espacio en blanco al final y principio de cadena
-                            //analizar.Add("STRING");
+                            lexemas.Add(lexema.Trim()); //se eliminan los espacio en blanco al final y principio de cadena
                             analizar.Add("STRING@" + lexema.Trim());
                             descripcion.Add("STRING");
                             lexema = "";
@@ -630,8 +627,8 @@ namespace Proyecto_Final
                             inicioEstado = inicioEstado - 1;
                         }
                         break;
-                    case 16:     // reconoce num dsp de la primer coma
-                        if (num.Contains(tokenconcatenar)) // al final probar si reconoce num y string
+                    case 16:     // reconoce num desp de la primer coma
+                        if (num.Contains(tokenconcatenar))
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 1;
@@ -641,9 +638,8 @@ namespace Proyecto_Final
                         {
                             lexemas.Add(lexema);
                             descripcion.Add("Numero");
-                            //analizar.Add("num");
                             analizar.Add("num@" + lexema);
-                            if (tokenconcatenar.Equals('$')) // si el ultimo guardo lexema y despues final cadena
+                            if (tokenconcatenar.Equals('$')) // si el ultimo guardo lexema y es final de la cadena
                             {
                                 lexema = Convert.ToString(tokenconcatenar);
                                 analizar.Add(lexema);
@@ -651,21 +647,21 @@ namespace Proyecto_Final
                             else
                             {
                                 estadoPrincipal = 0;
-                                inicioEstado = inicioEstado - 1;   //retrocede uno en el for y  ahora ve si es string
+                                inicioEstado = inicioEstado - 1;   //retrocede uno y ahora ve si es string
                                 lexema = "";
                             }
                         }
                          break;
 
                     case 17:
-                        if (num.Contains(tokenconcatenar))  // si viene nnumero dsp del - real negativos
+                        if (num.Contains(tokenconcatenar))  // si viene numero despues del - real negativos
                         {
                             lexema += tokenconcatenar;
                             estadoPrincipal = 1;
 
   
                         }
-                        else  // si viene otra cosa  reconose la operacion resta
+                        else  // si viene otra cosa reconoce la operacion resta
                         {
 
                             lexemas.Add(lexema);
@@ -676,13 +672,7 @@ namespace Proyecto_Final
                             estadoPrincipal = 0;
 
                         }
-                        
-
-
-
                         break;
-
-
                 }
             }
         }
