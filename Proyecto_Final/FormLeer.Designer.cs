@@ -87,6 +87,7 @@
             this.Name = "FormLeer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ventana ingreso dato";
+            this.Load += new System.EventHandler(this.FormLeer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

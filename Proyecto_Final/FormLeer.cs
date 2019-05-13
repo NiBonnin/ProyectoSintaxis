@@ -52,6 +52,12 @@ namespace Proyecto_Final
                 {                                                                       // no tiene numero despues de la coma final
                     error = true;
                 }
+
+                if (texto[0] == '-' && tboxDato.Text.Substring(1) =="")
+                {
+                    error = true;
+                }
+
             } else
             {
                 error = true;
@@ -74,6 +80,14 @@ namespace Proyecto_Final
             char[] charArray = s.ToCharArray();
             Array.Reverse(charArray);
             return new string(charArray);
+        }
+
+ 
+
+
+        private void FormLeer_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
